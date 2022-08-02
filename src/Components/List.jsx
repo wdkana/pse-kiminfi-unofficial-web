@@ -8,6 +8,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const List = ({ registrar, setPage }) => {
   const [activePage, setActivePage] = useState(1)
 
+  let last;
+  if ((registrar.data.length * registrar.meta.page.currentPage) > registrar.meta.page.total) {
+    last = true
+  }
   const handlePagination = (number) => {
     setPage(number)
     setActivePage(number)
@@ -26,7 +30,8 @@ const List = ({ registrar, setPage }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {registrar.data.map((result, i) => {
+            {!last && registrar.data.map((result, i) => {
+              if (!result) return
               return (
                 <Tr key={i} style={{ fontSize: 14, textTransform: "lowercase", wordBreak: "break-all" }}>
                   <Td style={{ padding: 8 }}>{result.attributes.nama}</Td>
@@ -41,9 +46,8 @@ const List = ({ registrar, setPage }) => {
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: 16 }}>
             <Pagination
               activePage={activePage}
-              itemsCountPerPage={registrar.meta.page.perPage}
-              totalItemsCount={registrar.meta.page.total}
-              pageRangeDisplayed={5}
+              itemsCountPerPage={last ? registrar.data.length : registrar.meta.page.perPage}
+              totalItemsCount={registrar.meta.page.total - 1}
               onChange={(e) => handlePagination(e)}
             />
           </div>

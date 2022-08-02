@@ -11,8 +11,8 @@ const ListContainer = ({ setDatas, page, datas }) => {
     axios.get(`${process.env.REACT_APP_BASEURL}/${opt}?page=${page}&limit=5`).then((result) => setDatas(result.data))
   }, [page, setDatas])
 
-  const ReCallback = useCallback(() => {
-    if (option !== "") {
+  const ReCallback = useCallback((isCanceled) => {
+    if (option && !isCanceled) {
       axios.get(`${process.env.REACT_APP_BASEURL}/${option}?page=${page}&limit=5`).then((result) => setDatas(result.data))
     }
   }, [option, setDatas, page])
@@ -20,7 +20,7 @@ const ListContainer = ({ setDatas, page, datas }) => {
 
   useEffect(() => {
     let isCanceled = false
-    if (!isCanceled) ReCallback()
+    if (!isCanceled) ReCallback(isCanceled)
     /* eslint-disable react-hooks/exhaustive-deps */
     return () => { isCanceled = true };
   }, [page])
