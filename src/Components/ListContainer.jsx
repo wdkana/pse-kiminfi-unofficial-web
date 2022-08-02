@@ -19,10 +19,10 @@ const ListContainer = ({ setDatas, page, datas }) => {
 
 
   useEffect(() => {
-    let isCanceled = true
+    let isCanceled = false
     if (!isCanceled) ReCallback()
     /* eslint-disable react-hooks/exhaustive-deps */
-    return () => { isCanceled = false };
+    return () => { isCanceled = true };
   }, [page])
 
   return (
