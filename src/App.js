@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './Components/Navbar';
+import Container from './Components/Styled/Container';
+import Intro from './Components/Intro';
+import ListContainer from './Components/ListContainer';
+import List from './Components/List';
+import { useState } from 'react';
 
 function App() {
+  const [datas, setDatas] = useState([]);
+  const [page, setPage] = useState(1);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Intro />
+      <ListContainer setDatas={setDatas} page={page} datas={datas} />
+      {datas.data && datas.data.length > 0 && <List registrar={datas} setPage={setPage} />}
+      <Navbar />
+    </Container>
   );
 }
 
