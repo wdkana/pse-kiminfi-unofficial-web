@@ -9,9 +9,10 @@ const List = ({ registrar, setPage }) => {
   const [activePage, setActivePage] = useState(1)
 
   let last;
-  if ((registrar.data.length * registrar.meta.page.currentPage) > registrar.meta.page.total) {
+  if ((registrar.data.length * registrar.meta.page.currentPage) >= registrar.meta.page.total) {
     last = true
   }
+
   const handlePagination = (number) => {
     setPage(number)
     setActivePage(number)
@@ -24,18 +25,18 @@ const List = ({ registrar, setPage }) => {
         <Table>
           <Thead>
             <Tr>
-              <Th style={{ padding: 8 }}>Nama</Th>
+              <Th style={{ textAlign: "center" }}>Nama</Th>
               <Th>Web</Th>
-              <Th>Tgl</Th>
+              <Th style={{ textAlign: "center" }}>Tgl</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {!last && registrar.data.map((result, i) => {
-              if (!result) return
+            {registrar.data.map((result, i) => {
+              if (!result) return;
               return (
                 <Tr key={i} style={{ fontSize: 14, textTransform: "lowercase", wordBreak: "break-all" }}>
-                  <Td style={{ padding: 8 }}>{result.attributes.nama}</Td>
-                  <Td >{result.attributes.website}</Td>
+                  <Td style={{ textAlign: "center" }}>{result.attributes.nama}</Td>
+                  <Td>{result.attributes.website}</Td>
                   <Td style={{ textAlign: "center" }}>{result.attributes.tanggal_daftar}</Td>
                 </Tr>
               )
