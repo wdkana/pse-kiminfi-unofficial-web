@@ -1,4 +1,3 @@
-import './App.css';
 import Navbar from './Components/Navbar';
 import Container from './Components/Styled/Container';
 import Intro from './Components/Intro';

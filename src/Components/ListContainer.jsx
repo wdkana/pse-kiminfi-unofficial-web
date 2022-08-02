@@ -6,18 +6,22 @@ import { useEffect, useState, useCallback } from 'react';
 const ListContainer = ({ setDatas, page, datas }) => {
   const [option, setOption] = useState("")
 
-  const handleOption = (params) => {
-    setOption(params)
-    axios.get(`${window.env.BASE_URL}/${params}?page=${page}&limit=5`).then((result) => setDatas(result.data))
-  }
+  const optionCallback = useCallback((opt) => {
+    setOption(opt)
+    axios.get(`${process.env.REACT_APP_BASEURL}/${opt}?page=${page}&limit=5`).then((result) => setDatas(result.data))
+  }, [page, setDatas])
 
-  const optionCallback = useCallback((opt) => handleOption(opt), [option])
+  const ReCallback = useCallback(() => {
+    if (option !== "") {
+      axios.get(`${process.env.REACT_APP_BASEURL}/${option}?page=${page}&limit=5`).then((result) => setDatas(result.data))
+    }
+  }, [option, setDatas, page])
+
 
   useEffect(() => {
-    if (option !== "") {
-      axios.get(`${window.env.BASE_URL}/${option}?page=${page}&limit=5`).then((result) => setDatas(result.data))
-    }
-    return () => datas;
+    ReCallback()
+    /* eslint-disable react-hooks/exhaustive-deps */
+    return () => false;
   }, [page])
 
   return (
