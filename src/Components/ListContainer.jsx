@@ -1,19 +1,19 @@
 import { BoxContent, Content, ButtonCTA, LabelCTA, FillCenter } from './Styled/Content';
 import { AiOutlineBank, AiOutlineGlobal } from 'react-icons/ai';
 import { useEffect, useState, useCallback } from 'react';
-import axios from "axios"
+import api from "../utils/axios"
 
-const ListContainer = ({ setDatas, page, datas }) => {
+const ListContainer = ({ setDatas, page }) => {
   const [option, setOption] = useState("")
 
   const optionCallback = useCallback((opt) => {
     setOption(opt)
-    axios.get(`${process.env.REACT_APP_BASEURLPROD}?option=${opt}&page=${page}&limit=5`).then((result) => setDatas(result.data))
+    api.get(`?option=${opt}&page=${page}&limit=5`).then((result) => setDatas(result.data))
   }, [page, setDatas])
 
   const ReCallback = useCallback((isCanceled) => {
     if (option && !isCanceled) {
-      axios.get(`${process.env.REACT_APP_BASEURLPROD}?option=${option}&page=${page}&limit=5`).then((result) => setDatas(result.data))
+      api.get(`?option=${option}&page=${page}&limit=5`).then((result) => setDatas(result.data))
     }
   }, [option, setDatas, page])
 

@@ -1,7 +1,6 @@
 import { Navigation, Nav, NavLink } from './Styled/Navigation';
 import { AiOutlineSecurityScan, AiOutlineWindows, AiOutlineReconciliation, AiOutlineMail } from 'react-icons/ai';
 
-
 const Navbar = () => {
   function goTo(link) {
     if (link === "/") {
